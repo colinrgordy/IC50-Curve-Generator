@@ -418,7 +418,7 @@ if uploaded_file is not None:
 
         # Export Section
         st.markdown("---")
-        st.subheader("💾 Export Clean Data")
+        st.subheader("Export Clean Data")
 
         csv_buffer = sample_df[
             [
