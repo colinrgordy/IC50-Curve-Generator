@@ -187,6 +187,18 @@ if uploaded_file is not None:
     )
     df_plate = plates_dict[selected_plate]
 
+    # CUSTOM PLATE NAME FIELD
+    custom_plate_name = st.sidebar.text_input(
+        "Plate / Compound Custom Title",
+        value=selected_plate,
+        help="Type a custom name to label your graph and export file.",
+    )
+    display_title = (
+        custom_plate_name.strip()
+        if custom_plate_name.strip()
+        else selected_plate
+    )
+
     st.sidebar.header("2. Plate Layout Settings")
 
     dilution_dir = st.sidebar.radio(
@@ -336,7 +348,7 @@ if uploaded_file is not None:
             line=dict(color="#FF4B4B", width=1.5, dash="dash"),
         )
 
-        # SLEEK IC50 PILL (No arrows/shapes blocking data)
+        # SLEEK IC50 PILL
         fig.add_annotation(
             x=log_ic50_fit,
             y=ic50_y_val,
@@ -354,10 +366,10 @@ if uploaded_file is not None:
             opacity=0.95,
         )
 
-        # Scaled Up Layout
+        # Dynamic Title in Plot
         fig.update_layout(
             title=dict(
-                text=f"<b>{selected_plate} — Dose Response Curve</b>",
+                text=f"<b>{display_title} — Dose Response Curve</b>",
                 font=dict(size=30),
             ),
             xaxis=dict(
@@ -406,7 +418,7 @@ if uploaded_file is not None:
 
         # Export Section
         st.markdown("---")
-        st.subheader("Export Clean Data")
+        st.subheader("💾 Export Clean Data")
 
         csv_buffer = sample_df[
             [
@@ -418,10 +430,14 @@ if uploaded_file is not None:
                 "RESP",
             ]
         ].to_csv(index=False)
+
+        # Safe filename conversion
+        safe_filename = re.sub(r"[^\w\-]", "_", display_title).lower()
+
         st.download_button(
             label="Download Prism-Ready CSV",
             data=csv_buffer,
-            file_name=f"{selected_plate}_dose_response_cleaned.csv",
+            file_name=f"{safe_filename}_dose_response_cleaned.csv",
             mime="text/csv",
         )
 
