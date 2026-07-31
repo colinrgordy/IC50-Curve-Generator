@@ -8,7 +8,7 @@ import streamlit as st
 
 st.set_page_config(
     page_title="High-Throughput Dose Response Analyzer",
-    page_icon="🧪",
+    page_icon="",
     layout="wide",
 )
 
@@ -392,7 +392,7 @@ if uploaded_file is not None:
             st.plotly_chart(fig, use_container_width=True)
 
         with col_stats:
-            st.markdown("### 📊 Fit Metrics")
+            st.markdown("### Fit Metrics")
             st.markdown("---")
             st.metric("IC50", f"{ic50_nM:.2f} nM")
             st.write("")
@@ -406,7 +406,7 @@ if uploaded_file is not None:
 
         # Export Section
         st.markdown("---")
-        st.subheader("💾 Export Clean Data")
+        st.subheader("Export Clean Data")
 
         csv_buffer = sample_df[
             [
@@ -429,4 +429,4 @@ if uploaded_file is not None:
         st.error(f"Curve fitting error: {e}")
 
 else:
-    st.info("👈 Upload a TECAN .xlsx, ViewLux .txt, or CSV file to start.")
+    st.info("Upload a TECAN .xlsx, ViewLux .txt, or CSV file to start.")
