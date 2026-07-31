@@ -157,7 +157,7 @@ def four_pl(x, top, bottom, log_ic50, hill_slope):
 # 3. STREAMLIT INTERFACE
 # ==========================================
 
-st.title("🧪 High-Throughput Dose Response & IC50 Analyzer")
+st.title("High-Throughput Dose Response & IC50 Analyzer")
 
 # Sidebar Configuration
 st.sidebar.header("1. Upload Data File")
